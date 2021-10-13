@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+    <head>
+
+    </head>
+    <body>
+        <h1 >T is <span id="temp">{{ temp }}</span></h1>
+        <h1 >H is <span id="humid">{{ humid }}</span></h1>
+        {% ifequal auto  1 %}
+        <form action={% url 'automode' %}  method="POST"> 
+                <label for="setpoint">Set Point:</label><br>
+                <input type="text" id="setpoint" name="setpoint"><br>
+                <input type="submit" value="Submit">  
+        </form> 
+        {% endifequal %}
+        {% ifequal manual 1 %}
+        <form action={% url 'manualmode' %}  method="POST"> 
+                    <input type="checkbox" id="led_on" name="led_on" >
+                    <label for="led_on">ON</label><br>
+
+                    <input type="checkbox" id="led_off" name="led_off" >
+                    <label for="led_off">OFF</label><br>
+
+                    <input type="submit" value="Submit"> 
+        </form> 
+        {% endifequal %} 
+
+        <form action={% url 'index' %}  method="POST">   
+            <input type="checkbox" id="auto" name="auto" >
+            <label for="auto">Auto</label><br>
+
+            <input type="checkbox" id="manual" name="manual" >
+            <label for="manual">Manual</label><br>
+                
+            <input type="submit" value="Submit">
+        </form>
+    </body>
+    <script>
+        function httpGet(theUrl)
+        {
+            var xmlHttp = new XMLHttpRequest();
+            xmlHttp.open( "GET", theUrl, false ); // false for synchronous request
+            xmlHttp.send( null );
+            return xmlHttp.responseText;
+        }
+        function setText(id,newvalue) {
+            var s= document.getElementById(id);
+            s.innerHTML = newvalue;
+            }  
+        function myFunction() {
+            data = httpGet('http://192.106.100.119:8000/iot/getdata')
+            data = JSON.parse(data)
+            setText('temp',data.Temp)
+            setText('humid',data.Humid)
+        }
+        var timer = setInterval( myFunction, 1000);
+        
+    </script>
+</html>
