@@ -1,57 +1,62 @@
 <!DOCTYPE html>
+{% load static %}
 <html>
     <head>
-
+    <link rel="stylesheet"  href="{%  static  'iot/style.css'  %}" type="text/css">
+    <script src="{%  static  'iot/script.js'  %}"></script>
     </head>
     <body>
-        <h1 >T is <span id="temp">{{ temp }}</span></h1>
-        <h1 >H is <span id="humid">{{ humid }}</span></h1>
+        <img src="{% static 'iot/logo.png' %}"/>
+        <img src="{% static 'iot/aut.png' %}"/>
+        <div class='control'>
+            <form action={% url 'index' %}  method="POST" class='form-style'>   
+                {{control_state_form.control_state}} <br>
+                <input type="submit" value="Submit">
+            </form>
 
-        <form action={% url 'index' %}  method="POST">   
-            {{control_state_form.control_state}} 
-            <input type="submit" value="Submit">
-        </form>
+            {% ifequal auto  False %}
+            <form action={% url 'manualmode' %}  method="POST" class='form-style'> 
+                    {{led_state_form.led_state}}<br>
+                    <input type="submit" value="Submit">  
+            </form> 
+            {% endifequal %}
 
-        {% ifequal auto  False %}
-        <form action={% url 'manualmode' %}  method="POST"> 
-                {{led_state_form.led_state}}
-                <input type="submit" value="Submit">  
-        </form> 
-        {% endifequal %}
+            {% ifequal auto  True %}
+            <form action={% url 'automode' %}  method="POST" class='form-style'> 
+                    <label for="setpoint">Set Point T :</label><br>
+                    {{setpoint_form.setpoint_t}} <br>
 
-        {% ifequal auto  True %}
-        <form action={% url 'automode' %}  method="POST"> 
-                <label for="setpoint">Set Point T :</label><br>
-                {{setpoint_form.setpoint_t}} <br>
+                    <label for="setpoint">Set Point H :</label><br>
+                    {{setpoint_form.setpoint_h}} <br>
 
-                <label for="setpoint">Set Point H :</label><br>
-                {{setpoint_form.setpoint_h}} <br>
+                    <input type="submit" value="Submit">  
+            </form> 
+            {% endifequal %}
 
-                <input type="submit" value="Submit">  
-        </form> 
-        {% endifequal %}
+        </div>
 
-        
+        <div class="container">
+            <div class="guage-holder">    
+                <div class="circle-mask">
+                    <div class="circle">
+                        <div class="circle-inner"></div> 
+                    </div>
+                </div>
+                <div class="percentage" > <span id="temp">0</span></div>
+                <div class="gauge-copy"></div>
+            </div>
+             <div class="guage-holder">    
+                <div class="circle-mask">
+                    <div class="circle">
+                        <div class="circle-inner"></div> 
+                    </div>
+                </div>
+                <div class="percentage"><span id="humid">0</span> %</div>
+                <div class="gauge-copy"></div>
+            </div>
+        </div>
+
     </body>
-    <script>
-        function httpGet(theUrl)
-        {
-            var xmlHttp = new XMLHttpRequest();
-            xmlHttp.open( "GET", theUrl, false ); // false for synchronous request
-            xmlHttp.send( null );
-            return xmlHttp.responseText;
-        }
-        function setText(id,newvalue) {
-            var s= document.getElementById(id);
-            s.innerHTML = newvalue;
-            }  
-        function myFunction() {
-            data = httpGet('http://127.0.0.1:8000/iot/getdata')
-            data = JSON.parse(data)
-            setText('temp',data.Temp)
-            setText('humid',data.Humid)
-        }
-        //var timer = setInterval( myFunction, 5000);
-        
-    </script>
+    
+    
 </html>

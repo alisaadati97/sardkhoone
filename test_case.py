@@ -7,7 +7,7 @@ def test_case():
     print(resp.json())
 
 def send_data():
-    url = "http://127.0.0.1:8000/iot/20/100"
+    url = "http://127.0.0.1:8000/iot/35/80"
     resp = requests.get(url)
     print(resp.status_code)
     #print(resp.json())
