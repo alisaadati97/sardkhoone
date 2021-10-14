@@ -3,8 +3,10 @@ from django.urls import path , include
 from .views import *
 
 urlpatterns = [
-    path('<int:H>/<int:T>', savedata ),
+    path('<int:T>/<int:H>', savedata ),
     path('getdata', getdata ),
+
+    path('testcase', testcase ),
 
     path('',index , name='index'),
     path('automode', automode , name='automode'),

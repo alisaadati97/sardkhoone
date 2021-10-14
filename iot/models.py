@@ -10,11 +10,9 @@ class Data(models.Model):
         ordering = ["-created_at"]
     
 class Control(models.Model):
-    ki = models.PositiveIntegerField()
-    kp = models.PositiveIntegerField()
-    kd = models.PositiveIntegerField()
     auto = models.BooleanField(default=True)
-    setpoint = models.PositiveIntegerField()
+    setpoint_t = models.PositiveIntegerField()
+    setpoint_h = models.PositiveIntegerField(null=True)
 
 class Led(models.Model):
     on = models.BooleanField(default=True)
