@@ -6,8 +6,8 @@
 }
 body {
     font-family: 'Lato', sans-serif;
-    font-size: 14px;
-    color: #999999;
+    font-size: 34px;
+    background-color: rgb(182, 182, 182);
     word-wrap:break-word;
 }
 ul {
@@ -27,6 +27,7 @@ ul {
     border-bottom: 1px solid #ccc;
     position: relative;
     text-align: center;
+    top: 200px;
 }
 .radio{
     display: block;
@@ -135,7 +136,7 @@ input{
   height: 30px;
   border-radius: 50%;
   position: absolute;
-  background: #b4dbc0;
+  background: #019B9B;
   top: 60%;
   left: 50%;
   transition: .3s ease-in-out;
@@ -157,9 +158,40 @@ input{
   content: "";
   position: absolute;
   border: 7px solid transparent;
-  border-right: 70px solid #b4dbc0;
+  border-right: 70px solid #019B9B;
   left: -75px;
   top: 8px;
   width: 0;
   height: 0;
+}
+
+.img1{
+  position: absolute;
+  border: 7px solid transparent;
+  left: 50px;
+  top: 30px;
+}
+
+.img2{
+  position: absolute;
+  border: 7px solid transparent;
+  right: 0px;
+  top: 5px;
+  height: 200px;
+}
+
+.submit{
+  background: #019B9B;
+  border-color: #f3ffbd;
+  border-radius: 30%;
+  height: 25px;
+  width: 60px;
+}
+
+.submit:hover{
+  background: #f3ffbd;
+  border-color: #f3ffbd;
+  border-radius: 30%;
+  height: 25px;
+  width: 60px;
 }
