@@ -23,22 +23,66 @@ def savedata(request , H,T):
         #compute output valve for humidity with a pid controller
         setpoint_h = control.setpoint_h 
         pid = PID(2, 0, 0.05, setpoint=setpoint_h)
-        pid.output_limits = (-100, 0) 
+        pid.output_limits = (0, 100) 
         control_h = pid(H)
         print(f' control_H is {control_h} ')
         
         #set led state based on pid outputs
-        led = Led.objects.get(id=1)
+        '''led = Led.objects.get(id=1)
         if control_t < 0 :
             led.on = True
-            return HttpResponse("output pid is here!" , status = 201)
+            return HttpResponse("output pid is here!" , status = -1*control_t)
         else:
             led.on = False
-            return HttpResponse("output pid is here!Led is off" , status = 202)
+            return HttpResponse("output pid is here!Led is off" , status = 201)
+        if control_h > 0 :
+            led.on = True
+            return HttpResponse("output pid is here!" , status = control_h)
+        else:
+            led.on = False
+            return HttpResponse("output pid is here!Led is off" , status = 202)'''
 
     else : 
         #manual mode is on . there is no pid working and led state is set manually
         return HttpResponse("manual mode is on!" , status = 203)  
+    return HttpResponse("output pid is here!Led is off" , status = 200)
+def getpidtdata(request):
+    data = Data.objects.all()[0]
+    control = Control.objects.get(id=1)
+    auto = control.auto
+    if auto :
+        #compute output valve for temperature with a pid controller
+        setpoint_t = control.setpoint_t 
+        pid = PID(13, 0, 0.05, setpoint=setpoint_t)
+        pid.output_limits = (-100, 0) 
+        control_t = pid(data.Temp)
+        print(f' control_t is {control_t} ')
+        led = Led.objects.get(id=1)
+        if control_t < 0 :
+            led.on = True
+            return HttpResponse("output pid is here!" , status = -1*control_t + 100)
+        else:
+            led.on = False
+            return HttpResponse("output pid is here!Led is off" , status = 201)
+    
+def getpidhdata(request):
+    data = Data.objects.all()[0]
+    control = Control.objects.get(id=1)
+    auto = control.auto
+    if auto :
+        #compute output valve for humidity with a pid controller
+        setpoint_h = control.setpoint_h 
+        pid = PID(-2, 0, -0.05, setpoint=setpoint_h)
+        pid.output_limits = (0, 100) 
+        control_h = pid(data.Humid)
+        print(f' control_H is {control_h} ')
+        led = Led.objects.get(id=1)
+        if control_h > 0 :
+            led.on = True
+            return HttpResponse("output pid is here!" , status = 100+control_h)
+        else:
+            led.on = False
+            return HttpResponse("output pid is here!Led is off" , status = 202)
 
 def getdata(request):
     data = Data.objects.all()[0]

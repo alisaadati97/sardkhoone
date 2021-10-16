@@ -11,7 +11,7 @@ function httpGet(theUrl)
             console.log(newvalue)
             }  
         function myFunction() {
-            data = httpGet('http://127.0.0.1:8000/iot/getdata')
+            data = httpGet('http://192.106.100.63:8000/iot/getdata')
             data = JSON.parse(data)
             
             setText('temp',data.Temp)

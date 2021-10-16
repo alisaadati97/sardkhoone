@@ -5,7 +5,8 @@ from .views import *
 urlpatterns = [
     path('<int:T>/<int:H>', savedata ),
     path('getdata', getdata ),
-
+    path('getpidtdata', getpidtdata ),
+    path('getpidhdata', getpidhdata ),
     path('testcase', testcase ),
 
     path('',index , name='index'),
