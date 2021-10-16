@@ -11,7 +11,7 @@ function httpGet(theUrl)
             console.log(newvalue)
             }  
         function myFunction() {
-            data = httpGet('http://192.106.100.63:8000/iot/getdata')
+            data = httpGet('http://192.168.43.60:8000/iot/getdata')
             data = JSON.parse(data)
             
             setText('temp',data.Temp)
@@ -40,5 +40,5 @@ function httpGet(theUrl)
 
 
         }
-        var timer = setInterval( myFunction, 5000);
+        var timer = setInterval( myFunction, 1000);
         

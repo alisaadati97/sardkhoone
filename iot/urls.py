@@ -3,7 +3,7 @@ from django.urls import path , include
 from .views import *
 
 urlpatterns = [
-    path('<int:T>/<int:H>', savedata ),
+    path('<int:H>/<int:T>', savedata ),
     path('getdata', getdata ),
     path('getpidtdata', getpidtdata ),
     path('getpidhdata', getpidhdata ),
