@@ -6,18 +6,18 @@
     <script src="{%  static  'iot/script.js'  %}"></script>
     </head>
     <body>
-        <img src="{% static 'iot/logo.png' %}"/>
-        <img src="{% static 'iot/aut.png' %}"/>
+        <img class="img1" src="{% static 'iot/logo.png' %}"/>
+        <img class="img2" src="{% static 'iot/aut.png' %}"/>
         <div class='control'>
             <form action={% url 'index' %}  method="POST" class='form-style'>   
                 {{control_state_form.control_state}} <br>
-                <input type="submit" value="Submit">
+                <input class="submit" type="submit" value="Submit">
             </form>
 
             {% ifequal auto  False %}
             <form action={% url 'manualmode' %}  method="POST" class='form-style'> 
                     {{led_state_form.led_state}}<br>
-                    <input type="submit" value="Submit">  
+                    <input class="submit" type="submit" value="Submit">  
             </form> 
             {% endifequal %}
 
@@ -29,7 +29,7 @@
                     <label for="setpoint">Set Point H :</label><br>
                     {{setpoint_form.setpoint_h}} <br>
 
-                    <input type="submit" value="Submit">  
+                    <input class="submit" type="submit" value="Submit">  
             </form> 
             {% endifequal %}
 
@@ -42,7 +42,7 @@
                         <div class="circle-inner"></div> 
                     </div>
                 </div>
-                <div class="percentage" > <span id="temp">0</span></div>
+                <div class="percentage" >Temperture :  <span id="temp">0</span></div>
                 <div class="gauge-copy"></div>
             </div>
              <div class="guage-holder">    
@@ -51,7 +51,7 @@
                         <div class="circle-inner"></div> 
                     </div>
                 </div>
-                <div class="percentage"><span id="humid">0</span> %</div>
+                <div class="percentage">Humidity : <span id="humid">0</span> %</div>
                 <div class="gauge-copy"></div>
             </div>
         </div>
