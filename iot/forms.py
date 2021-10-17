@@ -1,12 +1,16 @@
 from django import forms
+from .models import *
 
 led_states = [
     ('on', 'on'),
     ('off', 'off'),
     ]
+    
+class LedTState(forms.Form):
+    led_t_state = forms.CharField(widget=forms.RadioSelect(choices=led_states))
 
-class LedState(forms.Form):
-    led_state = forms.CharField(widget=forms.RadioSelect(choices=led_states))
+class LedHState(forms.Form):
+    led_h_state = forms.CharField(widget=forms.RadioSelect(choices=led_states))
 
 control_states = [
     ('auto', 'auto'),
@@ -19,3 +23,13 @@ class ControlState(forms.Form):
 class SetPoint(forms.Form):
     setpoint_t = forms.IntegerField()
     setpoint_h = forms.IntegerField()
+
+class PidT(forms.Form):
+    kp_t = forms.CharField(required=False)
+    ki_t = forms.CharField(required=False)
+    kd_t = forms.CharField(required=False)
+
+class PidH(forms.Form):
+    kp_h = forms.CharField(required=False)
+    ki_h = forms.CharField(required=False)
+    kd_h = forms.CharField(required=False)

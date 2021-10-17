@@ -7,10 +7,11 @@ urlpatterns = [
     path('getdata', getdata ),
     path('getpidtdata', getpidtdata ),
     path('getpidhdata', getpidhdata ),
-    path('testcase', testcase ),
 
     path('',index , name='index'),
+    
     path('automode', automode , name='automode'),
     path('manualmode',manualmode , name='manualmode'),
     
+
 ]

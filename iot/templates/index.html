@@ -12,11 +12,15 @@
             <form action={% url 'index' %}  method="POST" class='form-style'>   
                 {{control_state_form.control_state}} <br>
                 <input class="submit" type="submit" value="Submit">
+                
             </form>
 
             {% ifequal auto  False %}
             <form action={% url 'manualmode' %}  method="POST" class='form-style'> 
-                    {{led_state_form.led_state}}<br>
+                    <label for="setpoint"> T :</label><br>
+                    {{led_t_state_form.led_t_state}}<br>
+                    <label for="setpoint"> H :</label><br>
+                    {{led_h_state_form.led_h_state}}<br>
                     <input class="submit" type="submit" value="Submit">  
             </form> 
             {% endifequal %}
@@ -26,8 +30,13 @@
                     <label for="setpoint">Set Point T :</label><br>
                     {{setpoint_form.setpoint_t}} <br>
 
+                    {{pidt_form}} <br>
+                    <br>
+
                     <label for="setpoint">Set Point H :</label><br>
                     {{setpoint_form.setpoint_h}} <br>
+                    {{pidh_form}} <br>
+                    <br>
 
                     <input class="submit" type="submit" value="Submit">  
             </form> 
