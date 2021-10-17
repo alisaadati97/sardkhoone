@@ -11,7 +11,6 @@ def savedata(request , H , T ):
     print()
     print(f" Humidity: {H} , Tempereture: {T}")
     Data.objects.create(Temp = T , Humid = H)
-    control = Control.objects.get(id=1)
     return HttpResponse("Data Saved Successfully" , status = 200)
 
 def getpidtdata(request):
@@ -23,7 +22,7 @@ def getpidtdata(request):
     if auto :
         #compute output valve for temperature with a pid controller
         setpoint_t = control.setpoint_t 
-        pid = PID(8, 0, 0.5, setpoint=setpoint_t)
+        pid = PID(control.kp_t, control.ki_t,control.kd_t, setpoint=setpoint_t)
         pid.output_limits = (-100, 0) 
         control_t = pid(data.Temp)
         print(f' output control tempereture is {-1*control_t} ')
@@ -50,7 +49,7 @@ def getpidhdata(request):
     if auto :
         #compute output valve for humidity with a pid controller
         setpoint_h = control.setpoint_h 
-        pid = PID(-5, 0, -0.5, setpoint=setpoint_h)
+        pid = PID(control.kp_h, control.ki_h,control.kd_h, setpoint=setpoint_h)
         pid.output_limits = (-100, 0) 
         control_h = pid(data.Humid)
         print(f' output control humidity is {-1*control_h} ')

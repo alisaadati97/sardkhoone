@@ -5,7 +5,6 @@ led_states = [
     ('on', 'on'),
     ('off', 'off'),
     ]
-    
 class LedTState(forms.Form):
     led_t_state = forms.CharField(widget=forms.RadioSelect(choices=led_states))
 
