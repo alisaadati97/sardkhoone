@@ -11,11 +11,14 @@ function httpGet(theUrl)
             console.log(newvalue)
             }  
         function myFunction() {
-            data = httpGet('http://192.168.43.60:8000/iot/getdata')
+            data = httpGet('http://192.106.100.63:8000/iot/getdata')
             data = JSON.parse(data)
             
             setText('temp',data.Temp)
             setText('humid',data.Humid)
+
+	    setText('control_t',data.control_t)
+            setText('control_h',data.control_h)
             
             
             circle = document.getElementsByClassName('circle-inner')[0]

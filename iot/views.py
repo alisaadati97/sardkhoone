@@ -27,6 +27,8 @@ def getpidtdata(request):
         control_t = pid(data.Temp)
         print(f' output control tempereture is {-1*control_t} ')
         led = Led.objects.get(id=1)
+        data.control_t = -1*control_t
+        data.save()
         if control_t < 0 :
             led.on = True
             return HttpResponse("output pid is here!" , status = -1*control_t + 100)
@@ -54,6 +56,8 @@ def getpidhdata(request):
         control_h = pid(data.Humid)
         print(f' output control humidity is {-1*control_h} ')
         led = Led.objects.get(id=1)
+        data.control_h = -1*control_h
+        data.save()
         if control_h < 0 :
             led.on = True
             return HttpResponse("output pid is here!" , status = 100+(-1*control_h))
@@ -69,7 +73,7 @@ def getpidhdata(request):
 
 def getdata(request):
     data = Data.objects.all()[0]
-    return JsonResponse({'Temp':data.Temp , 'Humid':data.Humid})
+    return JsonResponse({'Temp':data.Temp , 'Humid':data.Humid , 'control_t':data.control_t , 'control_h':data.control_h})
 
 @csrf_exempt 
 def index(request):

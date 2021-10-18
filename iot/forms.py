@@ -2,8 +2,8 @@ from django import forms
 from .models import *
 
 led_states = [
-    ('on', 'on'),
-    ('off', 'off'),
+    ('on', 'open'),
+    ('off', 'close'),
     ]
 class LedTState(forms.Form):
     led_t_state = forms.CharField(widget=forms.RadioSelect(choices=led_states))

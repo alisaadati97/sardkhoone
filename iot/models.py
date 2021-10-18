@@ -5,6 +5,8 @@ from django.db.models.base import Model
 class Data(models.Model):
     Temp = models.PositiveIntegerField()
     Humid = models.PositiveIntegerField()
+    control_t = models.FloatField(null=True)
+    control_h = models.FloatField(null=True)
     created_at = models.DateTimeField(auto_now=True)
     class Meta:
         ordering = ["-created_at"]
